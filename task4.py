@@ -37,7 +37,7 @@ def handle_file(file_name):
 items = list()
 
 for i in range(1, 101):
-    file_name = f'D:/Рабочий стол/tasks/zip_var_53_4/{i}.xml'
+    file_name = f'tasks/zip_var_53_4/{i}.xml'
     items += handle_file(file_name)
 
 

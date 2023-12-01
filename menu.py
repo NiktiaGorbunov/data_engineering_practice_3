@@ -1,7 +1,7 @@
 import json
 
 def whrite_json(items: list, path_name: str):
-    json_items = json.dumps(items)
+    json_items = json.dumps(items, ensure_ascii=False)
     with open(path_name, 'w', encoding='utf-8') as f:
         f.write(json_items)
 
@@ -26,13 +26,14 @@ def filter_data(items: list,  key: str, params: str):
 def get_statistics(items: list,  key: str):
     stat = dict()
     stat['max'] = 0
-    stat['min'] = 0
+    stat['min'] = items[0][key]
     stat['avg'] = 0
 
     sum_bonus = 0.0
     for product in items:
         stat['max'] = max(float(stat['max']), float(product[key]))
-        stat['min'] = min(float(stat['min']), float(product[key]))
+        if float(product[key]) != 0:
+            stat['min'] = min(float(stat['min']), float(product[key]))
         sum_bonus += float(product[key])
 
     stat['avg'] = sum_bonus / len(items)

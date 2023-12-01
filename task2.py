@@ -35,7 +35,7 @@ def handle_file(file_name):
 items = list()
 
 for i in range(1, 92):
-    file_name = f'D:/Рабочий стол/tasks/zip_var_53_2/{i}.html'
+    file_name = f'tasks/zip_var_53_2/{i}.html'
     items += handle_file(file_name)
 
 # обработанные данные
