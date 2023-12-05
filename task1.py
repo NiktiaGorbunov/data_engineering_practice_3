@@ -20,16 +20,16 @@ def handle_file(file_name):
         item['edifice'] = build[1].h1.get_text().split(":")[1].strip()
         street = build[1].p.get_text().replace("Индекс", ":Индекс")
         item['street'] = street.split(':')[1].strip()
-        item['index'] = street.split(':')[3].strip()
+        item['index'] = int(street.split(':')[3].strip())
 
-        item['floors'] = build[2].find_all('span', attrs={'class': 'floors'})[0].get_text().split(':')[1].strip()
-        item['year'] = build[2].find_all('span', attrs={'class': 'year'})[0].get_text().strip().split()[-1]
-        item['parking'] = build[2].find_all('span')[2].get_text().split(':')[1].strip()
+        item['floors'] = int(build[2].find_all('span', attrs={'class': 'floors'})[0].get_text().split(':')[1].strip())
+        item['year'] = int(build[2].find_all('span', attrs={'class': 'year'})[0].get_text().strip().split()[-1])
+        item['parking'] = True if build[2].find_all('span')[2].get_text().split(':')[1].strip() == 'есть' else False
 
         item['img'] = build[3].find('img')['src']
 
-        item['rating'] = build[4].find_all('span')[0].get_text().split(":")[1].strip()
-        item['views'] = build[4].find_all('span')[1].get_text().split(":")[1].strip()
+        item['rating'] = float(build[4].find_all('span')[0].get_text().split(":")[1].strip())
+        item['views'] = int(build[4].find_all('span')[1].get_text().split(":")[1].strip())
 
         # print(item['city'])
         # print(item['edifice'])
@@ -65,6 +65,7 @@ menu.whrite_json(filter_items, 'answers/result_filtered_1.json')
 
 # cтатистические характеристики
 stat = menu.get_statistics(items, 'rating')
+menu.whrite_json(stat, 'answers/result_stat_1.json')
 print(f"MAX rating -> {stat['max']}\nMIN rating -> {stat['min']}\nAVG rating -> {round(stat['avg'], 2)}\n")
 
 # частота метки

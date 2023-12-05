@@ -43,6 +43,7 @@ menu.whrite_json(filter_items, 'answers/result_filtered_3.json')
 
 # cтатистические характеристики
 stat = menu.get_statistics(items, 'radius')
+menu.whrite_json(stat, 'answers/result_stat_3.json')
 print(f"MAX radius -> {stat['max']}\nMIN radius -> {stat['min']}\nAVG radius -> {round(stat['avg'], 2)}\n")
 
 # частота метки

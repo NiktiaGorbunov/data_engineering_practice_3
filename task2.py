@@ -52,6 +52,7 @@ menu.whrite_json(filter_items, 'answers/result_filtered_2.json')
 
 # cтатистические характеристики
 stat = menu.get_statistics(items, 'bonus')
+menu.whrite_json(stat, 'answers/result_stat_2.json')
 print(f"MAX bonus -> {stat['max']}\nMIN bonus -> {stat['min']}\nAVG bonus -> {round(stat['avg'], 2)}\n")
 
 # частота метки

@@ -21,12 +21,12 @@ def handle_file(file_name):
                 item['size'] = cl.find('size').get_text().strip()
                 item['color'] = cl.find('color').get_text().strip()
                 item['material'] = cl.find('material').get_text().strip()
-                item['price'] = cl.find('price').get_text().strip()
-                item['rating'] = cl.find('rating').get_text().strip()
-                item['reviews'] = cl.find('reviews').get_text().strip()
-                item['sporty'] = cl.find('sporty').get_text().strip()
-                item['new'] = cl.find('new').get_text().strip()
-                item['exclusive'] = cl.find('exclusive').get_text().strip()
+                item['price'] = int(cl.find('price').get_text().strip())
+                item['rating'] = float(cl.find('rating').get_text().strip())
+                item['reviews'] = int(cl.find('reviews').get_text().strip())
+                item['sporty'] = True if cl.find('sporty').get_text().strip() == 'yes' else False
+                item['new'] = True if cl.find('new').get_text().strip() == '+' else False
+                item['exclusive'] = True if cl.find('exclusive').get_text().strip() == 'yes' else False
             except:
                 pass
 
@@ -56,6 +56,7 @@ menu.whrite_json(filter_items, 'answers/result_filtered_4.json')
 
 # cтатистические характеристики
 stat = menu.get_statistics(items, 'price')
+menu.whrite_json(stat, 'answers/result_stat_4.json')
 print(f"MAX price -> {stat['max']}\nMIN price -> {stat['min']}\nAVG price -> {round(stat['avg'], 2)}\n")
 
 # частота метки

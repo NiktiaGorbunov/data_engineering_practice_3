@@ -56,9 +56,9 @@ def handle_file_from_pages(file_name):
             item['type'] = card.find('div', attrs={'class': 'item-all-title'}).find('a').get_text().split(' ')[0].strip()
             item['name'] = ' '.join(card.find('div', attrs={'class': 'item-all-title'}).find('a').get_text().split(' ')[1:]).strip()
             try:
-                item['price'] = card.find('div', attrs={'class': 'item-price-cont'}).find('meta', attrs={'itemprop': 'price'})['content']
+                item['price'] = int(card.find('div', attrs={'class': 'item-price-cont'}).find('meta', attrs={'itemprop': 'price'})['content'])
             except:
-                item['price'] = '0'
+                item['price'] = 0
             item['availability'] = card.find('div', attrs={'class': 'item-price-cont'}).find('meta', attrs={'itemprop': 'availability'})['content']
             item['vote'] = int(card.find('div', attrs={'class': 'vote-block'}).find('td', attrs={'class': 'vote-result'}).get_text().strip()[1:-1])
             item['link'] = WEBSITE+card.find('div', attrs={'class': 'buy_more'}).find('div', attrs={'class': 'add2basket_block'}).find('span')['onclick'][17:-2]
@@ -82,9 +82,9 @@ def handle_file_from_item(file_name):
         item['type'] = bs.find('h1').get_text().split(' ')[0].strip()
         item['name'] = ' '.join(bs.find('h1').get_text().split(' ')[1:]).strip()
         try:
-            item['price'] = bs.find('div', attrs={'class': 'price_buy_detail'}).find('meta', attrs={'itemprop': 'price'})['content']
+            item['price'] = int(bs.find('div', attrs={'class': 'price_buy_detail'}).find('meta', attrs={'itemprop': 'price'})['content'])
         except:
-            item['price'] = '0'
+            item['price'] = 0
 
         item['vote'] = int(bs.find('div', attrs={'class': 'iblock-vote'}).find('td', attrs={'class': 'vote-result'}).get_text().strip()[1:-1])
 
@@ -127,6 +127,7 @@ def task_1():
 
     # cтатистические характеристики
     stat = menu.get_statistics(items, 'price')
+    menu.whrite_json(stat, 'answers/result_stat_5_1.json')
     print(f"MAX price -> {stat['max']}\nMIN price -> {stat['min']}\nAVG price -> {round(stat['avg'], 2)}\n")
 
     # частота метки
@@ -162,6 +163,7 @@ def task_2():
 
     # cтатистические характеристики
     stat = menu.get_statistics(items, 'price')
+    menu.whrite_json(stat, 'answers/result_stat_5_2.json')
     print(f"MAX price -> {stat['max']}\nMIN price -> {stat['min']}\nAVG price -> {round(stat['avg'], 2)}\n")
 
     # частота метки
